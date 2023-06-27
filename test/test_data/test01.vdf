@@ -6,7 +6,10 @@ UnquotedRoot
 	"Quoted Key 1"      "Quoted Value 1"
 	"Quoted key with \"nested\" quotes"     "Quoted value with \"C:\\Some\\Path\\To\\Some\\File.txt\""
 	"QuotedKeyWithoutWhitespace"            "Quoted value that ends with escaped backslash\\"
-	SubObject
+
+	// this is a comment, which should be ignored
+
+	SubObject // this line ends in a comment
 	{
 		Hello       World
 		"This is"   "A sub-object"
