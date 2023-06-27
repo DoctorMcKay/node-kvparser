@@ -2,7 +2,7 @@ const assert = require('assert');
 const FS = require('fs');
 const Path = require('path');
 
-const {parse} = require('../index.js');
+const parse = require('../index.js').parse;
 
 function parseFile(filename) {
 	let fileContent = FS.readFileSync(Path.join(__dirname, 'test_data', filename)).toString('utf8');
@@ -31,22 +31,22 @@ assert.throws(() => parseFile('test02.vdf'), new Error('Unexpected end of input'
 let err = new Error('VDF Syntax Error: Unexpected token "}"; expected string or { at line 5, column 1');
 err.line = 5;
 err.column = 1;
-assert.throws(() => parseFile('test03.vdf'), err);
+assert.throws(() => parseFile('test03.vdf'), validateError(err));
 
 err = new Error('VDF Syntax Error: Unexpected token "{"; expected string at line 1, column 1');
 err.line = 1;
 err.column = 1;
-assert.throws(() => parseFile('test04.vdf'), err);
+assert.throws(() => parseFile('test04.vdf'), validateError(err));
 
 err = new Error('VDF Syntax Error: Unexpected token "RootValue"; expected { at line 1, column 13');
 err.line = 1;
 err.column = 13;
-assert.throws(() => parseFile('test05.vdf'), err);
+assert.throws(() => parseFile('test05.vdf'), validateError(err));
 
 err = new Error('VDF Syntax Error: Unexpected token "{"; expected string or } at line 4, column 2');
 err.line = 4;
 err.column = 2;
-assert.throws(() => parseFile('test06.vdf'), err);
+assert.throws(() => parseFile('test06.vdf'), validateError(err));
 
 ['440', '730', '210770'].forEach((appid) => {
 	let parsed = parseFile(`test${appid}.vdf`);
@@ -54,3 +54,14 @@ assert.throws(() => parseFile('test06.vdf'), err);
 });
 
 console.log('All tests passed');
+
+function validateError(expected) {
+	return (actual) => {
+		try {
+			assert.deepStrictEqual(actual, expected);
+			return true;
+		} catch (ex) {
+			return false;
+		}
+	};
+}
