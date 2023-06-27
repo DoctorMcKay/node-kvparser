@@ -1,6 +1,6 @@
 {
 	"name": "kvparser",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Parses VDF/KeyValues, used Steam and Source engine games",
 	"main": "index.js",
 	"repository": {
