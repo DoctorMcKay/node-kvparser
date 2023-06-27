@@ -23,8 +23,47 @@ or
 import {parse} from 'kvparser';
 ```
 
-Then parse your data:
+### parse(data)
 
-```js
-let data = parse(vdfData);
+Pass a string to the `parse` function, which will return an object. Since all KV structures begin with a named root key,
+the output object will have exactly one property, the value of which is an object.
+
+## Implementation Details
+
+No extra processing is done to any data types. This means that all numbers are returned as strings. Additionally, 
+proto-arrays are not automatically decoded into arrays. For example, this input data:
+
 ```
+ExampleData
+{
+	"some_key_1"      "1"
+	"some_key_2"      "1"
+	"some_key_3"      "1"
+}
+```
+
+Is decoded as:
+
+```json
+{
+	"ExampleData": {
+		"some_key_1": "1",
+		"some_key_2": "1",
+		"some_key_3": "1"
+	}
+}
+```
+
+Any data after the closing `}` is ignored. Any sequence that begins with `//` and terminates with a newline is treated
+as a comment and is ignored.
+
+Prior to decoding, all CRLF sequences (Windows-style line endings) are converted into LF (Unix-style line endings).
+Because VDF strings may contain newlines, this means that any string which contains a Windows-style newline will be
+converted to Unix-style newlines.
+
+Escape sequences are supported in quoted strings. Any backslash characters inside a quoted string are removed, and the
+following character is rendered as-is. Here are some example escape sequences and what they parse into:
+
+- `"\""` becomes `'"'`
+- `"\\"` becomes `'\\'` (a string containing a single backslash, which JavaScript serializes into an escaped backslash)
+- `"\n"` becomes `'n'`
