@@ -25,5 +25,8 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "node test/test.js"
+	},
+	"engines": {
+		"node": ">=4.0.0"
 	}
 }
