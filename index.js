@@ -1,3 +1,5 @@
+"use strict";
+
 const KvParser = require('./lib/KvParser.js');
 
 exports.parse = function(input) {
