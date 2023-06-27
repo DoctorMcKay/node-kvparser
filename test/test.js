@@ -11,8 +11,8 @@ function parseFile(filename) {
 	return parse(fileContent);
 }
 
-let test01 = parseFile('test01.vdf');
-assert.deepStrictEqual(test01, {
+let test01crlf = parseFile('test01.eol-crlf.vdf');
+assert.deepStrictEqual(test01crlf, {
 	UnquotedRoot: {
 		Unquoted_Key: 'Unquoted_Value_After_Spaces',
 		Unquoted_Key_2: 'Unquoted_Value_After_Tabs',
@@ -20,6 +20,25 @@ assert.deepStrictEqual(test01, {
 		'Quoted Key 1': 'Quoted Value 1',
 		'Quoted key with "nested" quotes': 'Quoted value with "C:\\Some\\Path\\To\\Some\\File.txt"',
 		QuotedKeyWithoutWhitespace: 'Quoted value that ends with escaped backslash\\',
+		'value with newline': 'This value has a new line in it\r\nthis is the next line',
+		SubObject: {
+			Hello: 'World',
+			'This is': 'A sub-object',
+			'Sub Object 3, this one is empty': {}
+		}
+	}
+});
+
+let test01lf = parseFile('test01.eol-lf.vdf');
+assert.deepStrictEqual(test01lf, {
+	UnquotedRoot: {
+		Unquoted_Key: 'Unquoted_Value_After_Spaces',
+		Unquoted_Key_2: 'Unquoted_Value_After_Tabs',
+		Unquoted_Key_3: 'Unquoted_Value_After_Single_Space',
+		'Quoted Key 1': 'Quoted Value 1',
+		'Quoted key with "nested" quotes': 'Quoted value with "C:\\Some\\Path\\To\\Some\\File.txt"',
+		QuotedKeyWithoutWhitespace: 'Quoted value that ends with escaped backslash\\',
+		'value with newline': 'This value has a new line in it\nthis is the next line',
 		SubObject: {
 			Hello: 'World',
 			'This is': 'A sub-object',
