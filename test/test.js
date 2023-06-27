@@ -28,7 +28,7 @@ assert.deepStrictEqual(test01, {
 	}
 });
 
-assert.throws(() => parseFile('test02.vdf'), new Error('Unexpected end of input'));
+assert.throws(() => parseFile('test02.vdf'), validateError(new Error('Unexpected end of input')));
 
 let err = new Error('VDF Syntax Error: Unexpected token "}"; expected string or { at line 5, column 1');
 err.line = 5;
