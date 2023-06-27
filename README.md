@@ -57,10 +57,6 @@ Is decoded as:
 Any data after the closing `}` is ignored. Any sequence that begins with `//` and terminates with a newline is treated
 as a comment and is ignored.
 
-Prior to decoding, all CRLF sequences (Windows-style line endings) are converted into LF (Unix-style line endings).
-Because VDF strings may contain newlines, this means that any string which contains a Windows-style newline will be
-converted to Unix-style newlines.
-
 Escape sequences are supported in quoted strings. Any backslash characters inside a quoted string are removed, and the
 following character is rendered as-is. Here are some example escape sequences and what they parse into:
 
