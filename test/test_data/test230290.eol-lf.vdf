@@ -1,3 +1,6 @@
+// This file actually has a mixture of LF and CRLF when we retrieve it from Steam, because of course it does.
+// I massaged the json version to always contain LF.
+
 "appinfo"
 {
 	"appid"		"230290"

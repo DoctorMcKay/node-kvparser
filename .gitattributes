@@ -1,4 +1,4 @@
 * text=auto
 
-*.eol-crlf.* binary
-*.eol-lf.* binary
+*.eol-crlf.* text eol=crlf
+*.eol-lf.* text eol=lf

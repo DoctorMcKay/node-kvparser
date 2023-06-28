@@ -8,6 +8,18 @@ const parse = require('../index.js').parse;
 
 function parseFile(filename) {
 	let fileContent = FS.readFileSync(Path.join(__dirname, 'test_data', filename)).toString('utf8');
+
+	// Fix line endings if git mangled them
+	if (filename.endsWith('.eol-crlf.vdf')) {
+		// First replace all CRLF with LF, then LF with CRLF. This avoids ending up with \r\r\n
+		fileContent = fileContent.replace(/\r\n/g, '\n')
+			.replace(/\n/g, '\r\n');
+	}
+
+	if (filename.endsWith('.eol-lf.vdf')) {
+		fileContent = fileContent.replace(/\r\n/g, '\n');
+	}
+
 	return parse(fileContent);
 }
 
