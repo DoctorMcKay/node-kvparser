@@ -74,6 +74,9 @@ assert.throws(() => parseFile('test06.vdf'), validateError(err));
 	assert.deepStrictEqual(parsed, require(`./test_data/test${appid}.json`));
 });
 
+let test230290 = parseFile('test230290.eol-lf.vdf');
+assert.deepStrictEqual(test230290, require('./test_data/test230290.json'));
+
 console.log('All tests passed');
 
 function validateError(expected) {
