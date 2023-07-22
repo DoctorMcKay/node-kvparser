@@ -12,6 +12,10 @@ exports.parse = function(input) {
 		input = input.toString('utf8');
 	}
 
+	if (typeof input != 'string') {
+		throw new Error(`Unexpected type "${typeof input}" for parameter 'input'`);
+	}
+
 	let parser = new KvParser(input);
 	return parser.parse();
 };
