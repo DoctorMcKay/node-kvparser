@@ -2,6 +2,10 @@
 
 const KvParser = require('./lib/KvParser.js');
 
+/**
+ * @param {string|Buffer} input
+ * @return {object}
+ */
 exports.parse = function(input) {
 	if (Buffer.isBuffer(input)) {
 		input = input.toString('utf8');
